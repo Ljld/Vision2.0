@@ -4,7 +4,7 @@
 
     <div class="selectors">
       <div class="selector" v-for="month in months">
-        <button @click="updateMonthsSelected(month)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        <button @click="updateChart(month)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
           {{ month.label }}
         </button>
       </div>
@@ -30,13 +30,13 @@ export default {
   data () {
     return {
       chartData: {
-        labels: [ 'January', 'February', 'March', 'April', '', '' ],
+        labels: ["Janvier", "Février"],
         datasets: [
           {
             label: "Avis vendus",
             backgroundColor: "hsl(252, 82.9%, 67.8%)",
             borderColor: "hsl(252, 82.9%, 67.8%)",
-            data: [40, 20, 12, 50]
+            data: [40, 18]
           }
         ]
       },
@@ -65,44 +65,21 @@ export default {
           label: "Avril",
           selected: true
         }
-      ],
-      monthsSelected: [
-        {
-          number: 1,
-          label: "Janvier",
-          selected: true
-        },
-        {
-          number: 2,
-          label: "Février",
-          selected: true
-        },
-        {
-          number: 3,
-          label: "Mars",
-          selected: true
-        },
-        {
-          number: 4,
-          label: "Avril",
-          selected: true
-        }
       ]
     }
   },
   methods: {
-    updateMonthsSelected : function (monthToUpdate) {
-      console.log(monthToUpdate)
-
-      if (this.monthsSelected.findIndex(month => month.number === monthToUpdate.number)) {
-        this.monthsSelected.(this.monthsSelected.findIndex(month => month.number === monthToUpdate.number), 1)
-        console.log('if')
+    updateChart: function (monthToUpdate) {
+      const monthIndex = this.months.findIndex(month => month.number === monthToUpdate.number)
+      if (monthIndex !== -1) {
+        this.months[monthIndex].selected = this.months[monthIndex].selected !== true
       }
-      else {
-        this.monthsSelected.push(monthToUpdate)
-        console.log('else')
-      }
+      this.chartData.labels = this.getLabels()
 
+      this.chartData = {...this.chartData}
+    },
+    getLabels: function () {
+      return this.months.filter(month => month.selected).map(month => month.label)
     },
     buildData: function () {
       this.chartData.datasets = [
@@ -130,8 +107,8 @@ export default {
     }
   },
   computed: {
-    updateChart() {
-
+    updateCharts() {
+      //return this.
     }
   }
 }
