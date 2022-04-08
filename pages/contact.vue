@@ -1,5 +1,5 @@
 <template>
-
+  <p>Yo</p>
 </template>
 
 <script>
