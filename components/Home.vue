@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <h1 class="text-7xl">Vision</h1>
-
     <div class="selectors">
       <div class="selector" v-for="month in months">
         <button @click="updateChart(month)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
@@ -9,7 +8,6 @@
         </button>
       </div>
     </div>
-
     <div class="my-chart shadow-lg rounded-lg p-10">
       <BarChart :chart-data="chartData" :options="chartOptions" />
     </div>
@@ -30,40 +28,51 @@ export default {
   data () {
     return {
       chartData: {
-        labels: ["Janvier", "Février"],
+        labels: [],
         datasets: [
           {
             label: "Avis vendus",
             backgroundColor: "hsl(252, 82.9%, 67.8%)",
             borderColor: "hsl(252, 82.9%, 67.8%)",
-            data: [40, 18]
+            data: []
           }
         ]
       },
       chartOptions: {
         response: false,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0,
+            }
+          }]
+        }
       },
       months : [
         {
-          number: 1,
+          number: 0,
           label: "Janvier",
-          selected: true
+          selected: false,
+          value: 13
+        },
+        {
+          number: 1,
+          label: "Février",
+          selected: false,
+          value: 3
         },
         {
           number: 2,
-          label: "Février",
-          selected: true
+          label: "Mars",
+          selected: false,
+          value: 6
         },
         {
           number: 3,
-          label: "Mars",
-          selected: true
-        },
-        {
-          number: 4,
           label: "Avril",
-          selected: true
+          selected: false,
+          value: 4
         }
       ]
     }
@@ -71,44 +80,24 @@ export default {
   methods: {
     updateChart: function (monthToUpdate) {
       const monthIndex = this.months.findIndex(month => month.number === monthToUpdate.number)
+
+      this.updateMonths(monthIndex)
+      this.updateLabels()
+      this.updateChartData()
+
+      this.chartData.datasets[0] = {...this.chartData.datasets[0]}
+      this.chartData = {...this.chartData}
+    },
+    updateMonths: function (monthIndex) {
       if (monthIndex !== -1) {
         this.months[monthIndex].selected = this.months[monthIndex].selected !== true
       }
-      this.chartData.labels = this.getLabels()
-
-      this.chartData = {...this.chartData}
     },
-    getLabels: function () {
-      return this.months.filter(month => month.selected).map(month => month.label)
+    updateLabels: function () {
+      this.chartData.labels = this.months.filter(month => month.selected).map(month => month.label)
     },
-    buildData: function () {
-      this.chartData.datasets = [
-        {
-          label: "Avis vendus",
-          backgroundColor: "hsl(252, 82.9%, 67.8%)",
-          borderColor: "hsl(252, 82.9%, 67.8%)",
-          data: [25, 15]
-        }
-      ]
-      console.log(this.chartData.datasets.data)
-      this.chartData.labels = ['January', 'February']
-      this.chartData.datasets[0].data = [15, 30]
-      this.chartData = {...this.chartData}
-      console.log(this.chartData.datasets.data)
-
-    },
-    buildData2: function () {
-      this.chartData.datasets[0].data = [15, 30, 60]
-      this.chartData.labels = ['January', 'February', 'March']
-
-      this.chartData = {...this.chartData}
-      //this.chartData.datasets = {...this.chartData.datasets}
-
-    }
-  },
-  computed: {
-    updateCharts() {
-      //return this.
+    updateChartData: function () {
+      this.chartData.datasets[0].data = this.months.filter(month => month.selected).map(month => month.value)
     }
   }
 }
@@ -122,20 +111,15 @@ export default {
   }
   .my-chart {
     max-height: 50em;
-    /*max-width: 60em;*/
     margin: auto;
     padding: 1em;
-    /*background-color: #212733;*/
     background-color: var(--secondary-bg-color-test);
   }
-
   .selectors {
     display: flex;
     justify-content: center;
   }
-
   button {
     margin: 1em;
   }
-
 </style>
