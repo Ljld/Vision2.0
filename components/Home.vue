@@ -54,25 +54,29 @@ export default {
           number: 0,
           label: "Janvier",
           selected: false,
-          value: 13
+          avisVendus: 13,
+          totalMorts : 0
         },
         {
           number: 1,
           label: "Février",
           selected: false,
-          value: 3
+          avisVendus: 3,
+          totalMorts : 0
         },
         {
           number: 2,
           label: "Mars",
           selected: false,
-          value: 6
+          avisVendus: 6,
+          totalMorts : 0
         },
         {
           number: 3,
           label: "Avril",
           selected: false,
-          value: 4
+          avisVendus: 4,
+          totalMorts : 0
         }
       ]
     }
@@ -87,6 +91,9 @@ export default {
 
       this.chartData.datasets[0] = {...this.chartData.datasets[0]}
       this.chartData = {...this.chartData}
+
+      this.getDataTest()
+
     },
     updateMonths: function (monthIndex) {
       if (monthIndex !== -1) {
@@ -97,9 +104,13 @@ export default {
       this.chartData.labels = this.months.filter(month => month.selected).map(month => month.label)
     },
     updateChartData: function () {
-      this.chartData.datasets[0].data = this.months.filter(month => month.selected).map(month => month.value)
+      this.chartData.datasets[0].data = this.months.filter(month => month.selected).map(month => month.avisVendus)
+    },
+    getDataTest: function () {
+       const testData = this.$axios.$get('https://deces.matchid.io/deces/api/v1/agg?birthCity=Paris&aggs=birthCity')
+       console.log(testData)
     }
-  }
+  },
 }
 </script>
 
