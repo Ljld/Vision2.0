@@ -40,7 +40,7 @@ export default {
   ],
 
   axios: {
-
+    baseURL: 'https://deces.matchid.io/deces/api/v1/'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
