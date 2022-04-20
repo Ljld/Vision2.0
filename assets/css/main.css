@@ -15,7 +15,17 @@ html, body {
 }
 
 #__nuxt {
-  margin: 0 10em;
+  /*margin: 0 10em;*/
   /*background-color: var(--main-bg-color);*/
+}
+
+#content {
+  margin: 0 10em;
+}
+
+h1 {
+  margin: 0.5em 0;
+  text-align: center;
+  color: var(--main-text-color);
 }
 

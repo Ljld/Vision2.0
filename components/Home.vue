@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <h1 class="text-7xl">Vision</h1>
+  <div id="content" class="container">
     <div class="selectors">
       <div class="selector" v-for="month in months">
         <button @click="updateChart(month)" :class="getSelectedBtnClass(month)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
@@ -20,7 +19,7 @@
 </template>
 
 <script>
-import BarChart from "@/components/BarChart";
+import BarChart from "@/components/charts/barChart/BarChart";
 
 export default {
   name: "Home",
