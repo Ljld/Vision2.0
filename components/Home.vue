@@ -20,6 +20,7 @@
 
 <script>
 import BarChart from "@/components/charts/barChart/BarChart";
+import { CHART_OPTIONS } from "@/const";
 
 export default {
   name: "Home",
@@ -48,17 +49,7 @@ export default {
           }
         ]
       },
-      chartOptions: {
-        response: false,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              min: 0,
-            }
-          }]
-        }
-      },
+      chartOptions: CHART_OPTIONS,
       months : [
         {
           number: 1,

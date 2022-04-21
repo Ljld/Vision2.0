@@ -38,5 +38,6 @@ export default {
 .corporate {
   background-color: white;
   background-image: none;
+  background-repeat: no-repeat;
 }
 </style>

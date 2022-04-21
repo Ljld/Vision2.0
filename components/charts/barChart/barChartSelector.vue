@@ -1,9 +1,18 @@
 <template>
   <div class="selectors">
-    <div class="selector month-selector" v-for="month in months">
-      <button @click="month.selected = !month.selected" :class="() => month.selected ? 'active' : ''" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-        {{ month.label }}
-      </button>
+    <div class="year-selectors">
+      <div class="selector year-selector">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full active">
+          2022
+        </button>
+      </div>
+    </div>
+    <div class="month-selectors">
+      <div class="selector month-selector" v-for="month in months">
+        <button @click="handleSelectorClick(month)" :class="month.selected ? 'active' : ''" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          {{ month.label }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -15,39 +24,6 @@ export default {
   name: "barChartSelector",
   data () {
     return {
-      avisChartData: {
-        labels: [],
-        datasets: [
-          {
-            label: "Avis vendus",
-            backgroundColor: "hsl(252, 82.9%, 67.8%)",
-            borderColor: "hsl(252, 82.9%, 67.8%)",
-            data: []
-          }
-        ]
-      },
-      mortsChartData: {
-        labels: [],
-        datasets: [
-          {
-            label: "Morts en France",
-            backgroundColor: "hsl(252, 82.9%, 67.8%)",
-            borderColor: "hsl(252, 82.9%, 67.8%)",
-            data: []
-          }
-        ]
-      },
-      chartOptions: {
-        response: false,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              min: 0,
-            }
-          }]
-        }
-      },
       months : [
         {
           number: 1,
@@ -76,9 +52,24 @@ export default {
       ]
     }
   },
+  methods: {
+    handleSelectorClick: function (month) {
+      month.selected = month.selected!==true
+      this.$emit('selectorsUpdated', this.months)
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+.year-selectors, .month-selectors {
+  display: flex;
+  justify-content: center;
+}
+.active {
+  filter: brightness(80%);
+}
+button {
+  margin: 1em;
+}
 </style>
