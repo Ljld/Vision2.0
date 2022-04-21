@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="corporate">
     <h1 class="text-6xl">Parts de marché</h1>
     <bar-chart-selector />
     <bar-chart />

@@ -6,7 +6,7 @@
       </div>
       <div class="menu">
         <p>
-          <NuxtLink to="/corporate">Corporate</NuxtLink>
+          <NuxtLink @click="handleNav($event)" to="/corporate">Corporate</NuxtLink>
         </p>
         <p>Dark mode</p>
         <p>
@@ -19,7 +19,12 @@
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  methods: {
+    handleNav: function () {
+      return 0
+    }
+  }
 }
 </script>
 

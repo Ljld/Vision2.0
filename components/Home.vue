@@ -1,5 +1,5 @@
 <template>
-  <div id="content" class="container">
+  <div class="gradient">
     <div class="selectors">
       <div class="selector" v-for="month in months">
         <button @click="updateChart(month)" :class="getSelectedBtnClass(month)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
