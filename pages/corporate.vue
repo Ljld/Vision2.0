@@ -18,12 +18,26 @@ export default {
   components: {BarChart, BarChartSelector},
   data () {
     return {
-      chartOptions: CHART_OPTIONS,
+      chartOptions: {
+        ...CHART_OPTIONS,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Parts de marché'
+          }
+        }
+      },
       decesChartData: {
         labels: [],
         datasets: [
           {
-            label: "Parts de marché",
+            label: "Avis vendus",
+            backgroundColor: "hsl(252, 82.9%, 67.8%)",
+            borderColor: "hsl(252, 82.9%, 67.8%)",
+            data: []
+          },
+          {
+            label: "Nombre de décès",
             backgroundColor: "hsl(252, 82.9%, 67.8%)",
             borderColor: "hsl(252, 82.9%, 67.8%)",
             data: []
@@ -34,21 +48,19 @@ export default {
   },
   methods: {
     updateLabels: function (months) {
+      this.decesChartData.labels = []
+      this.decesChartData.datasets[0].data = []
+      this.decesChartData.datasets[1].data = []
+
       months.map(month => {
         if (month.selected) {
-          this.decesChartData.labels.push('Décès en ' + month.label)
-          this.decesChartData.labels.push('Avis vendus en ' + month.label)
+          this.decesChartData.labels.push(month.label)
           this.decesChartData.datasets[0].data.push(10)
-          this.decesChartData.datasets[0].data.push(5)
-        } else {
-          this.decesChartData.labels = this.decesChartData.labels.filter(label => {
-            return label !== 'Décès en ' + month.label && label !== 'Avis vendus en ' + month.label
-          })
+          this.decesChartData.datasets[1].data.push(5)
         }
       })
-      this.decesChartData.datasets[0] = {...this.decesChartData.datasets[0]}
+
       this.decesChartData = {...this.decesChartData}
-      this.decesChartData.labels = {...this.decesChartData.labels}
     }
   }
 }

@@ -21,7 +21,6 @@ export default {
   },
   methods: {
     handleNav: function (event) {
-      console.log($nuxt.$route.name)
       this.pageCss = $nuxt.$route.name
     },
 
